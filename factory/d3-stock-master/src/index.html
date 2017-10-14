@@ -1,17 +1,32 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>D3.chart Boilerplate Example</title>
-    <link rel=stylesheet href="style.css" type="text/css" media=screen>
-    <script src='http://d3js.org/d3.v3.min.js' charset="utf-8"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js' charset="utf-8"></script>
-	</head>
-    <div>
-    <input type="text" id="company" list="languages">
-    </div>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div>
+    <input type="text" id="company" placeholder = "AAPL" list="languages">
+</div>
+<div>
+    <button type="submit" onclick="UserAction()">Search</button>
+</div>
+    <script type="text/javascript">
+    let download = require('./download.min');
+    function UserAction() {
+            var val=$("#company").val();
+            var obj=$("#languages").find("option[value='"+val+"']")
+            if(obj !=null && obj.length>0){
+                var url = new URL("http://192.81.218.180:9000/ticker?"),
+                params = {ticker:document.getElementById("company").value, amount:"short"}
+                Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+                fetch(url).then()
+            }
+            else{
+                alert("invalid");  
+            }
+                         
+    }
+</script>
+    
 <datalist id="languages">
-  <option value="HTML">
+  <option value="AAPL">
   <option value="CSS">
   <option value="JavaScript">
   <option value="Java">
@@ -24,8 +39,24 @@
   <option value="C#">
   <option value="C++">
 </datalist>
+<script type="text/javascript"
+  src="dygraph.js"></script>
+<link rel="stylesheet" src="dygraph.css" />
+</head>
+<body>
+<div id="graphdiv" style="width:500px; height:300px;">></div>
+<script type="text/javascript">
     
-<script src ="script.js"></script>
+        g = new Dygraph(document.getElementById("graphdiv"),"data/aapl.csv");
+    
+        
+        window.intervalId = setInterval(function() {
+            
+            g.updateOptions( { 'file':"data/aapl.csv" } );
+        }, 1000); 
+    
+</script>
+</body>
+    
 
-    
 </html>
