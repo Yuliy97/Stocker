@@ -5539,8 +5539,15 @@ h2.text-center:after {
     margin-right: 30%;
     align-items: center;
 }
-#signOut {
-    margin-top: 10%;
+#btnSearch {
+    margin-left: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+#company {
+    font-size: 22px; 
+    margin-top: 7px;
+    padding-bottom: 3px;
 }
 .profile{
     border: 3px solid #B7B7B7;
