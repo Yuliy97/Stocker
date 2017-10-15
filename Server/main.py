@@ -1,10 +1,15 @@
 from flask import Flask, request, Response
+from datetime import datetime as dt
+import datetime as d
 import panda as pd
 import io
 import urllib2
 import csv
 import requests
+import json
 import psycopg2
+from google import parseGoogle
+from aylien import getArticleInfo
 
 app = Flask(__name__)
 
@@ -45,15 +50,8 @@ def getPortfolio(email):
 
 # Get daily data on specific tickers. This will return data back to 2000 
 def getTickerData(ticker):
-	pardict = {'collapse': 'daily', 'start_date':'2016-01-01', 'end_date':'2017-10-13', 'api_key': TICKER_API_KEY, 'column_index':'4' }
+	pardict = {'order':'asc', 'collapse': 'daily', 'start_date':'2016-01-01', 'end_date':'2017-10-13', 'api_key': TICKER_API_KEY, 'column_index':'4' }
 	r = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/" + ticker + ".csv", params = pardict)
-	#response = urllib2.urlopen(r.url)
-	#cr = csv.reader(response)
-	#s = ""
-	#for row in cr:	    
-	#    if len(row) <= 1: continue
-	#    s += str(row)
-	#resp = Response(s.replace("[", "").replace("]", "</br>"))
 	resp = Response(r)
 	resp.headers['Access-Control-Allow-Origin'] = '*'
 	return resp 
@@ -79,11 +77,19 @@ def portfolio():
 def news():
         values = request.args.to_dict()
         ticker = values['ticker']
-        fromDate = values['fromDate']
-#	call Justin's function
-#	call Justin's function
-#	call Justin's function
-        return "Got you the news!"
+        date = values['date']
+	
+	pointDate = dt.fromtimestamp(int(date) / 1000).strftime('%m-%d-%Y')
+	days_to_subtract = 7
+	beforeDate = dt.strptime(pointDate, "%m-%d-%Y") - d.timedelta(days=days_to_subtract)
+	afterDate = dt.strptime(pointDate, "%m-%d-%Y") + d.timedelta(days=days_to_subtract)
+
+	articleInfo = getArticleInfo(parseGoogle(ticker, str(beforeDate), str(afterDate)))
+	
+	resp = Response(str(json.dumps(articleInfo)))
+	resp.headers['Access-Control-Allow-Origin'] = '*'
+
+        return resp
 
 if __name__ == '__main__':
-        app.run(host= '192.81.218.180', port=9000, debug=True)
+        app.run(host= '192.81.218.180', port=9000, debug=True, threaded=True)

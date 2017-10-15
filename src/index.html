@@ -7,7 +7,12 @@
 <div>
     <button type="submit" id="btn" >Search</button>
 </div>
-    
+    <script type="text/ecmascript" src="/js/jquery.min.js"></script> 
+    <!-- We support more than 40 localizations -->
+    <script type="text/ecmascript" src="/js/i18n/grid.locale-en.js"></script>
+    <!-- This is the Javascript file of jqGrid -->   
+    <script type="text/ecmascript" src="/js/jquery.jqGrid.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />    
     
 <datalist id="languages">
   <option value="PIH">
@@ -3288,6 +3293,7 @@
 <option value="ZYNE">
 <option value="ZNGA">
 </datalist>
+<head>
 <script type="text/javascript"
   src="dygraph.js"></script>
 <link rel="stylesheet" src="dygraph.css" />
@@ -3296,12 +3302,31 @@
 <div id="graphdiv" style="width:800px; height:500px;"></div>
 <script type="text/javascript">
     
-        g = new Dygraph(document.getElementById("graphdiv"),"http://192.81.218.180:9000/ticker?ticker=AAPL",
+        g = new Dygraph(document.getElementById("graphdiv"),"data/aapl.csv",
               {showRangeSelector: true,
 	      rangeSelectorPlotFillColor: 'MediumSlateBlue',
               rangeSelectorPlotFillGradientColor: 'rgba(123, 104, 238, 0)',
               colorValue: 0.9,
-              fillAlpha: 0.4});
+	      stackedGraph: true,
+              fillAlpha: 0.4,
+	      pointClickCallback: function(e, p) {
+		 
+            	var val=$("#company").val();
+            	var obj=$("#languages").find("option[value='"+val+"']");
+            
+          	  if(obj !=null && obj.length>0){
+ 		alert("fetching");
+		fetch("http://192.81.218.180:9000/news?ticker="+document.getElementById("company").value
+			+ "&date=" + p.xval).then(function(response) {
+  				return response.json();
+			}).then(function(myBlob) {
+				var myList = myBlob;
+				buildHtmlTable('#excelDataTable',myList);
+				//var r = document.getElementById('result');
+  				//r.innerHTML = (JSON.stringify(myBlob, null, "  "));
+			});
+              	  } 
+		}});
     
     
         
@@ -3320,7 +3345,57 @@
         });
     
 </script>
-</body>
+<script>
+
+function buildHtmlTable(selector,myList) {
+  var columns = addAllColumnHeaders(myList, selector);
+
+  for (var i = 0; i < myList.length; i++) {
+    var row$ = $('<tr/>');
     
+    for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+      var lul = colIndex;
+	if(lul == 0){
+		lul=1;	
+	}else if(lul ==1){
+		lul=0;
+	}
+      var cellValue = myList[i][columns[lul]];
+      if (cellValue == null) cellValue = "";
+      row$.append($('<td/>').html(cellValue));
+    }
+    $(selector).append(row$);
+  }
+}
+
+function addAllColumnHeaders(myList, selector) {
+  var columnSet = [];
+  var headerTr$ = $('<tr/>');
+
+  for (var i = 0; i < myList.length; i++) {
+    var rowHash = myList[i];
+    for (var key in rowHash) {
+      if ($.inArray(key, columnSet) == -1) {
+        columnSet.push(key);
+        headerTr$.append($('<th/>').html(key));
+      }
+    }
+  }
+  $(selector).append(headerTr$);
+
+  return columnSet;
+}
+
+</script>
+
+<div id="result"></div>
+<table id="jqGrid"></table>
+<div id="jqGridPager"></div>
+</body>
+
+<body>
+  <table id="excelDataTable" border="1">
+  </table>
+</body>    
 
 </html>
