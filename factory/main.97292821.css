@@ -5533,6 +5533,25 @@ h2.text-center:after {
 #navbarRow {
     margin-left: 10px;
 }
+#goLog {
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+    align-items: center;
+}
+.profile{
+    border: 3px solid #B7B7B7;
+    padding: 10px;
+    margin-top: 10px;
+    width: 350px;
+    background-color: #F7F7F7;
+    height: 160px;
+}
+.profile p{margin: 30px 0px 10px 3px;}
+.head{margin-bottom: 10px;}
+.head a{float: right;}
+.profile img{width: 100px;float: left;margin: 0px 10px 10px 0px;}
+.proDetails{float: left;}s
 /*
 .navbarButton {
     color: #6496c8;

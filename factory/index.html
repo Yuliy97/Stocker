@@ -8,7 +8,9 @@
   <meta content="width=device-width,initial-scale=1" name="viewport">
   <meta content="description" name="description">
   <meta name="google" content="notranslate" />
-    <meta name="google-signin-client_id" content="49631322020-15farh299rller8duvrl5qjog8mm9bd7.apps.googleusercontent.com">
+           <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1088057571288-m9d97n0eklelq28fah3ucmope91jepml.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta content="Mashup templates have been developped by Orson.io team" name="author">
 
   <!-- Disable tap highlight on IE -->
@@ -40,17 +42,9 @@
         <button class="close" aria-label="Close">
             <span aria-hidden="false">&times;</span>
         </button>
-        <br>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="./index.html#contact-section-container" title="" class="anchor-link">Contact Us</a>
-            </li>
-            <li>
-                <p class = "navbarspace" id="navbarRow">
-                    <!--<button id="signupBtn" class="btn btn-default" onclick="document.getElementById('signup').style.display='block'">Login / Sign #Up</button>
-                    -->
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </p>
+                <div id="goLog" class="g-signin2" data-longtitle="true"></div>
             </li>
         </ul>
       </div>
@@ -67,7 +61,10 @@
   </form>
 </div>
 
-
+<!-- HTML for render Google Sign-In button -->
+<div id="gSignIn"></div>
+<!-- HTML for displaying user details -->
+<div class="userContent"></div>
 
 <!-- Add your site or app content here -->
 <div class="background-image-container white-text-container" style="background-image: url('./assets/images/background.jpg')">
@@ -310,7 +307,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
         </div>
     </div>
 </footer>
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
 
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      };
+    </script>
 <script>
 document.addEventListener("DOMContentLoaded", function (event) {
   navbarToggleSidebar();
