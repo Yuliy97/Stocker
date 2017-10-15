@@ -3322,6 +3322,8 @@
   				return response.json();
 			}).then(function(myBlob) {
 				var myList = myBlob;
+				var r = document.getElementById('excelDataTable');
+				r.innerHTML = ""
 				buildHtmlTable('#excelDataTable',myList);
 				//var r = document.getElementById('result');
   				//r.innerHTML = (JSON.stringify(myBlob, null, "  "));
