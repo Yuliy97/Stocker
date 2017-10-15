@@ -1,4 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, Response
+import panda as pd
+import io
+import urllib2
+import csv
 import requests
 import psycopg2
 
@@ -41,10 +45,18 @@ def getPortfolio(email):
 
 # Get daily data on specific tickers. This will return data back to 2000 
 def getTickerData(ticker):
-	pardict = {'collapse': 'daily', 'start_date':'2000-01-01', 'end_date':'2017-10-13', 'api_key': TICKER_API_KEY }
-	r = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/" + ticker + ".xml", params = pardict)
-	return r.content
-
+	pardict = {'collapse': 'daily', 'start_date':'2016-01-01', 'end_date':'2017-10-13', 'api_key': TICKER_API_KEY, 'column_index':'4' }
+	r = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/" + ticker + ".csv", params = pardict)
+	#response = urllib2.urlopen(r.url)
+	#cr = csv.reader(response)
+	#s = ""
+	#for row in cr:	    
+	#    if len(row) <= 1: continue
+	#    s += str(row)
+	#resp = Response(s.replace("[", "").replace("]", "</br>"))
+	resp = Response(r)
+	resp.headers['Access-Control-Allow-Origin'] = '*'
+	return resp 
 
 # Pass in the ticker and the amount you want in the API route. Will return stock market data for a ticker. 
 # "short" for not a lot of data and "long" for a lot of data.
@@ -53,6 +65,13 @@ def data():
         values = request.args.to_dict()
         ticker = values['ticker'].upper()
         return getTickerData(ticker);
+
+#Ask for potfolio. Right now pass in email, wont need to pass in email after authentication.
+@app.route('/portfolio', methods=['GET'])
+def portfolio():
+        values = request.args.to_dict()
+        email = values['email']
+        return getPortfolio(email);
 
 
 #Get necessary news to pass to front-end
