@@ -10,6 +10,7 @@ stocker.news
 With a stock ticker/symbol in mind, input it into the search bar. After pressing search a graph will pop up. Click on a point on the graph to grab related news near that date.
 
 
-
+# Technologies
+We used HTML, CSS, Javascript, Python, Flask, posgreSQL database, #API's here
 
 
