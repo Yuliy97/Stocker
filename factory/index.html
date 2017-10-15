@@ -3390,7 +3390,7 @@
                     <h1 >Stocker.news</h1>
                     <br>
                         <p class="">THE BEST NEWS FOR YOUR POCKET</p>
-                        <a href="#contact-section-container" class="btn btn-default anchor-link" title="">GET STARTED</a>
+                        <a href="#graph-section-container" class="btn btn-default anchor-link" title="">GET STARTED</a>
              
                     
                 </div>
@@ -3398,45 +3398,70 @@
         </div>
     
 </div>
-
-<div class="section-container" id="contact-section-container">
-
-        <div class="row">
-            <div class="col-xs-12 col-md-offset-2 col-md-8">
-                <div class="section-container-spacer">
-                    <input type="text" id="company" placeholder = "AAPL" list="languages">
-                    <button class="btn btn-primary" type="submit" id="btnSearch" >Search</button>
-                </div>
+<div class="section-container" id="graph-section-container">
+    <div class="row" id="isRow">
+            <div class="section-container-spacer">
+                <input type="text" id="company" placeholder = "AAPL" list="languages">
+                <button class="btn btn-primary" type="submit" id="btnSearch" >Search</button>
             </div>
-        </div>
-<div class="" style="height:1000px;">
-    <div id="graphdiv" style="width:95%; height:60%;"></div>
-    <script type="text/javascript">
-
-            g = new Dygraph(document.getElementById("graphdiv"),"data/aapl.csv",
-                  {showRangeSelector: true,
-              rangeSelectorPlotFillColor: 'MediumSlateBlue',
-                  rangeSelectorPlotFillGradientColor: 'rgba(123, 104, 238, 0)',
-                  colorValue: 0.9,
-                   stackedGraph: true,
-                  fillAlpha: 0.4});
-        
-            document.getElementById("btnSearch").addEventListener("click", function(){
-                var val=$("#company").val();
-                var obj=$("#languages").find("option[value='"+val+"']");
-
-                if(obj !=null && obj.length>0){
-                    g.updateOptions( { 'file': "http://192.81.218.180:9000/ticker?ticker=" + document.getElementById("company").value});  
-                }
-                else{
-                    alert("invalid");  
-                }
-            });
-
-    </script>
-</div>
     </div>
+    <div class="section-container" style="width: 100%;height: 1000px;position:absolute;margin-top:4%;">
+   <div id="graphdiv" style="width:95%; height:70%;"></div>
+    </div>
+<script type="text/javascript">
+    
+        g = new Dygraph(document.getElementById("graphdiv"),"http://192.81.218.180:9000/ticker?ticker=AAPL",
+              {showRangeSelector: true,
+	      rangeSelectorPlotFillColor: 'MediumSlateBlue',
+              rangeSelectorPlotFillGradientColor: 'rgba(123, 104, 238, 0)',
+              colorValue: 0.9,
+              fillAlpha: 0.4});
+    
+    
+        
+        document.getElementById("btn").addEventListener("click", function(){
+            var val=$("#company").val();
+            var obj=$("#languages").find("option[value='"+val+"']");
+            
+            if(obj !=null && obj.length>0){
+                g.updateOptions( { 'file': "http://192.81.218.180:9000/ticker?ticker=" + document.getElementById("company").value});  
+                
+            }
+            else{
+                alert("invalid");  
+            }
+            
+        });
+    
+</script>
+</div>
+<!--
+<div class="section-container" style="margin-top: 2%; width: 93%; position:relative; height: 900px;">
+    <div id="graphdiv" style="height:90%;"></div>
+ </div>
+<script type="text/javascript">
+                g = new Dygraph(document.getElementById("graphdiv"),"data/aapl.csv",
+                      {showRangeSelector: true,
+                  rangeSelectorPlotFillColor: 'MediumSlateBlue',
+                      rangeSelectorPlotFillGradientColor: 'rgba(123, 104, 238, 0)',
+                      colorValue: 0.9,
+                       stackedGraph: true,
+                      fillAlpha: 0.4});
 
+                document.getElementById("btnSearch").addEventListener("click", function(){
+                    var val=$("#company").val();
+                    var obj=$("#languages").find("option[value='"+val+"']");
+
+                    if(obj !=null && obj.length>0){
+                        g.updateOptions( { 'file': "http://192.81.218.180:9000/ticker?ticker=" + document.getElementById("company").value});  
+                    }
+                    else{
+                        alert("invalid");  
+                    }
+                });
+
+        </script>
+-->
 <div class="section-container section-half-background-image-container">
 
     <div class="container">
@@ -3480,6 +3505,56 @@
 
         </div>
                 <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+
+        </div>
+         <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+
+        </div>
+         <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+
+        </div>
+         <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+
+        </div>
+         <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+
+        </div>
+         <div class="row">
                 <h2>title</h2>
                 <h3>author/source</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
