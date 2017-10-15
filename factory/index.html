@@ -8,6 +8,9 @@
   <meta content="width=device-width,initial-scale=1" name="viewport">
   <meta content="description" name="description">
   <meta name="google" content="notranslate" />
+           <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="1088057571288-m9d97n0eklelq28fah3ucmope91jepml.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta content="Mashup templates have been developped by Orson.io team" name="author">
 
   <!-- Disable tap highlight on IE -->
@@ -16,7 +19,7 @@
   <link href="./assets/apple-touch-icon.png" rel="apple-touch-icon">
   <link href="./assets/favicon.ico" rel="icon">
 
-  <title>Title page</title>  
+  <title>Main</title>  
 
 <link href="./main.97292821.css" rel="stylesheet"></head>
 
@@ -29,113 +32,141 @@
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed">
           <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
+          <span class="icon-bar">Login</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
       </div>
 
       <div class="navbar-collapse">
-        <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button class="close" aria-label="Close">
+            <span aria-hidden="false">&times;</span>
+        </button>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="./index.html#contact-section-container" title="" class="anchor-link">Contact Us</a></li>
             <li>
-                <p>
-                    <a href="./components.html" class="btn btn-default navbar-btn" >Components</a>
-                </p>
+                
+                <div id="goLog" class="g-signin2" data-longtitle="true"></div>
             </li>
-
-
+            
         </ul>
-
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a id="signOut" href="#"  title="" onclick="signOut();">Sign Out</a>
+            </li>
+        </ul>
       </div>
     </div>
   </nav>
 </header>
 
 
+<!-- HTML for render Google Sign-In button -->
+<div id="gSignIn"></div>
+<!-- HTML for displaying user details -->
+<div class="userContent"></div>
 
 <!-- Add your site or app content here -->
-<div class="background-image-container white-text-container" style="background-image: url('./assets/images/img-05.jpg')">
+<div class="background-image-container white-text-container" style="background-image: url('./assets/images/background.jpg')">
     <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h1>The Factory</h1>
-                <p class="">THE BEST PLACE FOR WORK TOGETHER</p>
-                <a href="#contact-section-container" class="btn btn-primary btn-lg anchor-link" title="">Get in touch</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 >Stocker.news</h1>
+                    <br>
+                        <p class="">THE BEST NEWS FOR YOUR POCKET</p>
+                        <a href="#graph-section-container" class="btn btn-default anchor-link" title="">GET STARTED</a>
+             
+                    
+                </div>
             </div>
         </div>
-    </div>
+    
 </div>
+<div class="" id="graph-section-container">
+    <div class='container-fluid'>
+        <div class="row map-container">
+            <div id="map"></div>
+            <div class="col-xs-10 col-md-4 contact-block-container reveal">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <h3>Phone</h3>
+                        <p>+ 123 45 67 890</p>
 
-<div class="section-container">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-md-12 section-container-spacer">
-                <h2 class="text-center">Vivamus laoreet</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <div class="fa-container">
-                    <i class="fa fa-comment-o fa-3x" aria-hidden="true"></i>
-                </div>
-                <h3 class="text-center">Consectetur</h3>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident.</p>
-            </div>
+                        <h3>E-mail</h3>
+                        <p>hello@email.com</p>
 
-            <div class="col-xs-12 col-md-4">
-                <div class="fa-container">
-                    <i class="fa fa-heart-o fa-3x" aria-hidden="true"></i>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6">
+                        <h3>Address</h3>
+                        <p>42 rue rouelle 75015, Paris</p>
+
+                        <h3>Open hours</h3>
+                        <p>Mon - Fri : 9AM - 5PM</p>
+                    </div>
                 </div>
-                <h3 class="text-center">Malesuada</h3>
-                <p>Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.</p>
-            </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="fa-container">
-                    <i class="fa fa-bell-o fa-3x" aria-hidden="true"></i>
-                </div>
-                <h3 class="text-center">Phasellus</h3>
-                <p> Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat.</p>
             </div>
         </div>
     </div>
 </div>
 
 <div class="section-container section-half-background-image-container">
-    <div class="image-column" style="background-image: url('./assets/images/img-01.jpg')"></div>
+
     <div class="container">
         <div class="row">
-            <div class="section-label reveal">
-                <p>Coworking</p>
-            </div>
-            <div class="col-md-6 col-md-offset-6 text-column">
-                <h2>Dui augue orci</h2>
-                <h3>Lorem ipsum</h3>
+                <h2>title</h2>
+                <h3>author/source</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
                     lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
                     elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
                     et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
                     sed sollicitudin quam, a bibendum urna.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus «
-                    ut lacus » tellus. In pretium lobortis blandit.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit.</p>
 
-            </div>
+        </div>
+        <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+        </div>
+                <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+
+        </div>
+                <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+
+        </div>
+                <div class="row">
+                <h2>title</h2>
+                <h3>author/source</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
+                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
+                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
+                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
+                    sed sollicitudin quam, a bibendum urna.</p>
+
         </div>
     </div>
 </div>
 
 
-
+<!--
 <div class="section-container">
     <div class="container">
         <div class="row">
@@ -166,34 +197,8 @@
         </div>
     </div>
 </div>
+-->
 
-<div class="">
-    <div class='container-fluid'>
-        <div class="row map-container">
-            <div id="map"></div>
-            <div class="col-xs-10 col-md-4 contact-block-container reveal">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                        <h3>Phone</h3>
-                        <p>+ 123 45 67 890</p>
-
-                        <h3>E-mail</h3>
-                        <p>hello@email.com</p>
-
-                    </div>
-
-                    <div class="col-xs-12 col-sm-6">
-                        <h3>Address</h3>
-                        <p>42 rue rouelle 75015, Paris</p>
-
-                        <h3>Open hours</h3>
-                        <p>Mon - Fri : 9AM - 5PM</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="section-container" id="contact-section-container">
@@ -231,11 +236,11 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Send message</button>
-                    <a href="" class="btn btn-default">Reset</a>
+                    <a href="" class="btn btn-primary">Reset</a>
                 </form>
             </div>
         </div>
-    </div>
+    </div>bn
 </div>
 
 
@@ -271,9 +276,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             </a>
                         </p>
                     </div>
-                    <div>
-                        <p><small>© Untitled | Website created with <a href="http://www.mashup-template.com/" title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/" title="Beautiful Free Images">Unsplash</a></small></p>
-                    </div>
+           
 
                 </div>
 
@@ -295,12 +298,33 @@ document.addEventListener("DOMContentLoaded", function (event) {
         </div>
     </div>
 </footer>
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
 
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      };
+    </script>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function (event) {
   navbarToggleSidebar();
 });
 </script>
-
-
 <script type="text/javascript" src="./main.faaf51f9.js"></script>
