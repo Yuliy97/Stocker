@@ -44,7 +44,14 @@
         </button>
         <ul class="nav navbar-nav navbar-right">
             <li>
+                
                 <div id="goLog" class="g-signin2" data-longtitle="true"></div>
+            </li>
+            
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a id="signOut" href="#"  title="" onclick="signOut();">Sign Out</a>
             </li>
         </ul>
       </div>
@@ -52,14 +59,6 @@
   </nav>
 </header>
 
-<div id="signup" class="modal">
-   <form class="modal-content animate" action="/action_page.php">
-                <center><p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p></center>
-                <div class="clearfix">
-                    <button class="btn" onclick="document.getElementById('signup').style.display='none'">Cancel</button>
-                </div>
-  </form>
-</div>
 
 <!-- HTML for render Google Sign-In button -->
 <div id="gSignIn"></div>
@@ -83,14 +82,6 @@
         </div>
     
 </div>
-<!--
-<div class="section-container" id = "graph-section-container" align = "center">
-
-
-
-
-</div>
--->
 <div class="" id="graph-section-container">
     <div class='container-fluid'>
         <div class="row map-container">
@@ -245,11 +236,11 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Send message</button>
-                    <a href="" class="btn btn-default">Reset</a>
+                    <a href="" class="btn btn-primary">Reset</a>
                 </form>
             </div>
         </div>
-    </div>
+    </div>bn
 </div>
 
 
@@ -323,6 +314,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
         console.log("ID Token: " + id_token);
       };
     </script>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
 <script>
 document.addEventListener("DOMContentLoaded", function (event) {
   navbarToggleSidebar();
