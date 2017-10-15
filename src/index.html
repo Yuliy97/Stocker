@@ -7,13 +7,13 @@
 <div>
     <button type="submit" id="btn" >Search</button>
 </div>
-    <script type="text/ecmascript" src="/js/jquery.min.js"></script> 
+    <script type="text/ecmascript" src="/js/jquery.min.js"></script>
     <!-- We support more than 40 localizations -->
     <script type="text/ecmascript" src="/js/i18n/grid.locale-en.js"></script>
-    <!-- This is the Javascript file of jqGrid -->   
+    <!-- This is the Javascript file of jqGrid -->
     <script type="text/ecmascript" src="/js/jquery.jqGrid.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />    
-    
+    <link rel="stylesheet" type="text/css" media="screen" href="css/ui.jqgrid.css" />
+
 <datalist id="languages">
   <option value="PIH">
 <option value="TURN">
@@ -3302,7 +3302,7 @@
 <body>
 <div id="graphdiv" style="width:95%; height:70%;"></div>
 <script type="text/javascript">
-    
+
         g = new Dygraph(document.getElementById("graphdiv"),"data/aapl.csv",
               {showRangeSelector: true,
 	      rangeSelectorPlotFillColor: 'MediumSlateBlue',
@@ -3311,10 +3311,10 @@
 	      stackedGraph: true,
               fillAlpha: 0.4,
 	      pointClickCallback: function(e, p) {
-		 
+
             	var val=$("#company").val();
             	var obj=$("#languages").find("option[value='"+val+"']");
-            
+
           	  if(obj !=null && obj.length>0){
  		alert("fetching");
 		fetch("http://192.81.218.180:9000/news?ticker="+document.getElementById("company").value
@@ -3328,25 +3328,25 @@
 				//var r = document.getElementById('result');
   				//r.innerHTML = (JSON.stringify(myBlob, null, "  "));
 			});
-              	  } 
+              	  }
 		}});
-    
-    
-        
+
+
+
         document.getElementById("btn").addEventListener("click", function(){
             var val=$("#company").val();
             var obj=$("#languages").find("option[value='"+val+"']");
-            
+
             if(obj !=null && obj.length>0){
-                g.updateOptions( { 'file': "http://192.81.218.180:9000/ticker?ticker=" + document.getElementById("company").value});  
-                
+                g.updateOptions( { 'file': "http://192.81.218.180:9000/ticker?ticker=" + document.getElementById("company").value});
+
             }
             else{
-                alert("invalid");  
+                alert("invalid");
             }
-            
+
         });
-    
+
 </script>
 <script>
 
@@ -3355,11 +3355,11 @@ function buildHtmlTable(selector,myList) {
 
   for (var i = 0; i < myList.length; i++) {
     var row$ = $('<tr/>');
-    
+
     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
       var lul = colIndex;
-	
-		
+
+
       var cellValue = myList[i][columns[lul]];
       if (cellValue == null) cellValue = "";
 	if(lul == 0){
@@ -3415,6 +3415,6 @@ function linkify(inputText) {
 <body>
   <table id="excelDataTable" border="1">
   </table>
-</body>    
+</body>
 
 </html>

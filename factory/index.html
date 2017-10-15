@@ -3319,17 +3319,18 @@
         <button class="close" aria-label="Close">
             <span aria-hidden="false">&times;</span>
         </button>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <div id="goLog" class="g-signin2" data-longtitle="true"></div>
-            </li>
-            
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" style="margin-top:1.9%; margin-left: 8%;">
             <li>
                 <a id="signOut" href="#"  title="" onclick="signOut();">Sign Out</a>
             </li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <div id="goLog" class="g-signin2" data-width="220px" data-height="34px" data-longtitle="true" ></div>
+            </li>
+            
+        </ul>
+
       </div>
     </div>
   </nav>
@@ -3400,7 +3401,9 @@
 </div>
 <div class="section-container" id="graph-section-container">
     <div class="row" id="isRow">
+
             <div class="section-container-spacer">
+                        <p style="margin-left:4%;">Search a valid stock from our comprehensive list and click on a datapoint ON the line of the graph to see news regarding that point in time related to the stock. </p>
                 <input type="text" id="company" placeholder = "AAPL" list="languages">
                 <button class="btn btn-primary" type="submit" id="btnSearch" >Search</button>
             </div>
@@ -3408,6 +3411,7 @@
     <div class="section-container" style="width: 100%;height: 1000px;position:absolute;margin-top:4%;">
    <div id="graphdiv" style="width:95%; height:70%;"></div>
     </div>
+<!--
 <script type="text/javascript">
     
         g = new Dygraph(document.getElementById("graphdiv"),"http://192.81.218.180:9000/ticker?ticker=AAPL",
@@ -3433,6 +3437,51 @@
             
         });
     
+</script>
+-->
+<script type="text/javascript">
+        g = new Dygraph(document.getElementById("graphdiv"),"data/aapl.csv",
+              {showRangeSelector: true,
+	      rangeSelectorPlotFillColor: 'MediumSlateBlue',
+              rangeSelectorPlotFillGradientColor: 'rgba(123, 104, 238, 0)',
+              colorValue: 0.9,
+	      stackedGraph: true,
+              fillAlpha: 0.4,
+	      pointClickCallback: function(e, p) {
+
+            	var val=$("#company").val();
+            	var obj=$("#languages").find("option[value='"+val+"']");
+
+          	  if(obj !=null && obj.length>0){
+ 		$('img').show();
+		fetch("http://192.81.218.180:9000/news?ticker="+document.getElementById("company").value
+			+ "&date=" + p.xval).then(function(response) {
+  				return response.json();
+			}).then(function(myBlob) {
+				var myList = myBlob;
+				var r = document.getElementById('excelDataTable');
+				r.innerHTML = ""
+                $('img').hide();
+				buildHtmlTable('#excelDataTable',myList);
+				//var r = document.getElementById('result');
+  				//r.innerHTML = (JSON.stringify(myBlob, null, "  "));
+			});
+              	  }
+		}});
+        document.getElementById("btnSearch").addEventListener("click", function(){
+            var val=$("#company").val();
+            var obj=$("#languages").find("option[value='"+val+"']");
+
+            if(obj !=null && obj.length>0){
+                g.updateOptions( { 'file': "http://192.81.218.180:9000/ticker?ticker=" + document.getElementById("company").value});
+
+            }
+            else{
+                alert("invalid");
+            }
+
+        });
+
 </script>
 </div>
 <!--
@@ -3462,199 +3511,152 @@
 
         </script>
 -->
-<div class="section-container section-half-background-image-container">
+<div class="" id="newSection">
 
-    <div class="container">
-        <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
+        <table id="excelDataTable" border="1">
+        </table>
+        <script>
+            function buildHtmlTable(selector,myList) {
+              var columns = addAllColumnHeaders(myList, selector);
 
-        </div>
-        <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
-        </div>
-                <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
+              for (var i = 0; i < myList.length; i++) {
+                var row$ = $('<tr/>');
 
-        </div>
-                <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
+                for (var colIndex = 0; colIndex < columns.length; colIndex++) {
+                  var lul = colIndex;
 
-        </div>
-                <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
 
-        </div>
-         <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
+                  var cellValue = myList[i][columns[lul]];
+                  if (cellValue == null) cellValue = "";
+                if(lul == 1){
+                    cellValue = linkify(cellValue);
+                }
+                  row$.append($('<td/>').html(cellValue));
+                }
+                $(selector).append(row$);
+              }
+            }
 
-        </div>
-         <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
+            function addAllColumnHeaders(myList, selector) {
+              var columnSet = [];
+              var headerTr$ = $('<tr/>');
 
-        </div>
-         <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
+              for (var i = 0; i < myList.length; i++) {
+                var rowHash = myList[i];
+                for (var key in rowHash) {
+                  if ($.inArray(key, columnSet) == -1) {
+                    columnSet.push(key);
+                    headerTr$.append($('<th/>').html(key));
+                  }
+                }
+              }
+              $(selector).append(headerTr$);
+              return columnSet;
+            }
 
-        </div>
-         <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
+            function linkify(inputText) {
+                var replacedText, replacePattern1, replacePattern2, replacePattern3;
 
-        </div>
-         <div class="row">
-                <h2>title</h2>
-                <h3>author/source</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor. Phasellus ut
-                    lacus tellus. In pretium lobortis blandit. Nam eu laoreet velit. Vivamus laoreet, sem nec scelerisque
-                    elementum, dui augue aliquet urna, ut bibendum purus erat ut massa. Mauris diam orci, feugiat a turpis
-                    et, congue accumsan risus. Nulla malesuada leo sodales, auctor augue quis, condimentum lacus. Phasellus
-                    sed sollicitudin quam, a bibendum urna.</p>
+                //URLs starting with http://, https://, or ftp://
+                replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+                replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
 
-        </div>
-    </div>
+                //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+                replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+                replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+                //Change email addresses to mailto:: links.
+                replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+                replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+                return replacedText;
+            }
+            </script>
+        
+            <center><img src="./assets/images/loading.gif" id="img" style="display:none;"/></center>
+        
+        <!--
+        <table class="responsive-table" id="excelDataTable" border="1">
+        </table>
+        
+        <table>
+		<thead>
+			<tr>
+				<th>Column 1</th>
+				<th>Column 2</th>
+				<th>Column 3</th>
+				<th>Column 4</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Cell 1</td>
+				<td>Cell 2</td>
+				<td>Cell 3</td>
+				<td>Cell 4</td>
+			</tr>
+			<tr>
+				<td>Cell 1</td>
+				<td>Cell 2</td>
+				<td>Cell 3</td>
+				<td>Cell 4</td>
+			</tr>
+			<tr>
+				<td>Cell 1</td>
+				<td>Cell 2</td>
+				<td>Cell 3</td>
+				<td>Cell 4</td>
+			</tr>
+			<tr>
+				<td>Cell 1</td>
+				<td>Cell 2</td>
+				<td>Cell 3</td>
+				<td>Cell 4</td>
+			</tr>
+			<tr>
+				<td>Cell 1</td>
+				<td>Cell 2</td>
+				<td>Cell 3</td>
+				<td>Cell 4</td>
+			</tr>
+		</tbody>
+	</table>
+-->
 </div>
 
-
-<div class="section-container" id="contact-section-container">
-    <div class="container contact-form-container">
-        <div class="row">
-            <div class="col-xs-12 col-md-offset-2 col-md-8">
-                <div class="section-container-spacer">
-                    <h2 class="text-center">Get in touch</h2>
-                </div>
-                <form action="">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="Name">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="email" name="email" class="form-control" placeholder="Email">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3" placeholder="Enter your message"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="inlineCheckbox1" value="option1">Email me a copy
-                        </label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" id="inlineCheckbox2" value="option2">I am a human
-                        </label>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Send message</button>
-                    <a href="" class="btn btn-primary">Reset</a>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-<footer class="footer-container white-text-container">
+<footer class="footer-container white-text-container" >
     <div class="container">
-        <div class="row">
-                <div class="col-md-4">
-                    <h4>About us</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sit amet consectetur dolor</p>
+        <div class="row" >
+                <div class="col-md-5">
+                    <h4>About...</h4>
+                    <p>Stocker is a web application designed to help investors make better choices in the future based on events that happened in the past. </p>
                 </div>
-
-                <div class="col-md-4">
-                    <h4>Do you like ? Share this !</h4>
+            
+                <div class="col-md-5">
+                    <h4>Our Team..</h4>
+                    <p>Our team is composed of 4 enthusiastic and hardworking CS majors from Georgia Tech.</p>
+                </div>
+            
+                <div class="col-md-5">
+                    <h4>Do you like ?  Hire Us !</h4>
                     <div>
                         <p>
-                            <a href="https://www.twitter.com" class="fa-icon" title="">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                        </a>
-                            <a href="https://www.facebook.com" class="fa-icon" title="">
-                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            <a href="https://www.linkedin.com/in/jonathanlafiandra" class="fa-icon" title="Jack">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
                             </a>
-                            <a href="https://www.linkedin.com" class="fa-icon" title="">
+                            <a href="https://www.linkedin.com/in/yuliliu97" class="fa-icon" title="Yuli">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                             <a href="https://www.linkedin.com/in/justin-duan" class="fa-icon" title="Justin">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/andreylukin" class="fa-icon" title="Andrey">
                                 <i class="fa fa-linkedin" aria-hidden="true"></i>
                             </a>
                         </p>
                     </div>
-           
-
                 </div>
 
-                <div class="col-md-4">
-                        
-                    <h4>Subscribe to newsletter</h4>
-                    
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" class="form-control footer-input-text">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default btn-newsletter ">OK</button>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                </div>
         </div>
     </div>
 </footer>
